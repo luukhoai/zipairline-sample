@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import ZipAirlineList, ZipAirlineDetail
+from .views import ZipAirplaneList, ZipAirplaneDetail, ZipAirlines
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('zipairlines/', ZipAirlineList.as_view(), name='list'),
-    path('zipairlines/<int:pk>', ZipAirlineDetail.as_view(), name='detail')
+    path('zipairplanes/', ZipAirplaneList.as_view(), name='airplane_list'),
+    path('zipairplanes/<int:pk>', ZipAirplaneDetail.as_view(), name='airplane_detail'),
+    path('zipairlines/', ZipAirlines.as_view(), name='airlines')
 ]
