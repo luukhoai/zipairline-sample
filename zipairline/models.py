@@ -6,6 +6,23 @@ from .settings import PER_PASSENGER_CONSUMPTION, PER_PLANE_CONSUMPTION, FIELD_TA
 class ZipAirline(models.Model):
     airline_name = models.CharField(max_length=100)
 
+    @property
+    def total_consumption(self):
+        consumption = 0
+        airplanes = self.airplanes.all()
+        for airplane in airplanes:
+            consumption += airplane.total_consumption_per_minute
+        return consumption
+
+    @property
+    def total_fly_time(self):
+        fly_time = 0
+        airplanes = self.airplanes.all()
+        print(fly_time)
+        for airplane in airplanes:
+            fly_time += airplane.total_consumption_per_minute
+        return fly_time
+
 
 class ZipAirplane(models.Model):
     airplane_id = models.IntegerField()

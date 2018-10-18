@@ -19,12 +19,6 @@ class ZipAirplaneSerializer(ModelSerializer):
             raise serializers.ValidationError('passenger_numb shoud be positive integer value.')
         return value
 
-    def get_fly_time(self, obj):
-        return obj.fly_time
-
-    def get_total_consumption_per_minute(self, obj):
-        return obj.total_consumption_per_minute
-
     def validate(self, order_dict):
         airplane_id = order_dict['airplane_id']
         passenger_numb = order_dict['passenger_numb']
@@ -35,13 +29,18 @@ class ZipAirplaneSerializer(ModelSerializer):
 
 
 class ZipAirlinesSerializer(ModelSerializer):
-    airplanes = ZipAirplaneSerializer(many=True, read_only=True)
+    airplanes = ZipAirplaneSerializer(many=True)
 
     class Meta:
         model = ZipAirline
-        fields = ('airplanes',)
+        fields = ('airplanes', 'airline_name', 'total_consumption', 'total_fly_time')
 
     def create(self, validated_data):
-        print('haha')
-        print(validated_data)
-        return 'HAHA'
+        airline_name = validated_data.pop('airline_name')
+        airplanes = validated_data.pop('airplanes')
+
+        airline = ZipAirline.objects.get(airline_name=airline_name)
+        for airplane_data in airplanes:
+            ZipAirplane.objects.create(**airplane_data)
+        return airline
+
