@@ -1,13 +1,13 @@
 from rest_framework import generics
-from .serializers import ZipAirlineSerializer
-from .models import ZipAirline
+from .serializers import ZipAirplaneSerializer
+from .models import ZipAirplane
 
 
 class ZipAirlineList(generics.ListCreateAPIView):
-    queryset = ZipAirline.objects.all()
-    serializer_class = ZipAirlineSerializer
+    queryset = ZipAirplane.objects.all()
+    serializer_class = ZipAirplaneSerializer
 
 
 class ZipAirlineDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = ZipAirline.objects.all()
-    serializer_class = ZipAirlineSerializer
+    queryset = ZipAirplane.objects.all()
+    serializer_class = ZipAirplaneSerializer

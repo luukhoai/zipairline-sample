@@ -8,15 +8,15 @@ class ZipAirlineTest(TestCase):
 
     def test_zipairline_id_is_not_positive(self):
         data = {
-            'zipairline_id': '-1',
+            'airplane_id': '-1',
             'passenger_numb': '100'
         }
         response = self.client.post(self.url, data).json()
-        assert response['zipairline_id'][0] == 'zipairline_id should be positive integer value.'
+        assert response['airplane_id'][0] == 'airplane_id should be positive integer value.'
 
     def test_passenger_numb_is_not_positive(self):
         data = {
-            'zipairline_id': '1',
+            'airplane_id': '1',
             'passenger_numb': '-100'
         }
         response = self.client.post(self.url, data).json()
@@ -24,7 +24,7 @@ class ZipAirlineTest(TestCase):
 
     def test_fly_time_is_not_positive(self):
         data = {
-            'zipairline_id': '1',
+            'airplane_id': '1',
             'passenger_numb': '100000'
         }
         response = self.client.post(self.url, data).json()
@@ -32,9 +32,9 @@ class ZipAirlineTest(TestCase):
 
     def test_pass_value(self):
         data = {
-            'zipairline_id': '1',
+            'airplane_id': '1',
             'passenger_numb': '100'
         }
         response = self.client.post(self.url, data).json()
-        assert response['zipairline_id'] == 1
+        assert response['airplane_id'] == 1
         assert response['passenger_numb'] == 100
