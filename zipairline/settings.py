@@ -120,3 +120,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+FIELD_TANK = int(os.environ.get('FIELD_TANK', 200))
+
+PER_PASSENGER_CONSUMPTION = float(os.environ.get('PER_PASSENGER_CONSUMPTION', 0.02))
+
+PER_PLANE_CONSUMPTION = float(os.environ.get('PER_PLANE_CONSUMPTION', 0.8))
