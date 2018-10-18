@@ -35,12 +35,13 @@ class ZipAirplaneSerializer(ModelSerializer):
 
 
 class ZipAirlinesSerializer(ModelSerializer):
-    airplanes = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    airplanes = ZipAirplaneSerializer(many=True, read_only=True)
 
     class Meta:
         model = ZipAirline
         fields = ('airplanes',)
 
-    def validate(self, value):
-        print(value)
-        return value
+    def create(self, validated_data):
+        print('haha')
+        print(validated_data)
+        return 'HAHA'
