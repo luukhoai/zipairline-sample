@@ -7,7 +7,7 @@ class ZipAirlineTest(TestCase):
 
     def setUp(self):
         self.url = '/zipairplanes/'
-        self.airline = ZipAirline.objects.create(airline_name='AirlineTest')
+        self.airline = ZipAirline.objects.create(airline_name='TestAirline')
 
     def test_airplane_object_create(self):
         airplane = ZipAirplane.objects.create(airplane_id=1,passenger_numb=100,airline=self.airline)
@@ -69,6 +69,14 @@ class ZipAirlineTest(TestCase):
             'airplanes': [
                         {'airplane_id': '1', 'passenger_numb': '100'},
                         {'airplane_id': '2', 'passenger_numb': '200'},
+                        {'airplane_id': '3', 'passenger_numb': '200'},
+                        {'airplane_id': '4', 'passenger_numb': '200'},
+                        {'airplane_id': '5', 'passenger_numb': '200'},
+                        {'airplane_id': '6', 'passenger_numb': '200'},
+                        {'airplane_id': '7', 'passenger_numb': '200'},
+                        {'airplane_id': '8', 'passenger_numb': '200'},
+                        {'airplane_id': '9', 'passenger_numb': '200'},
+                        {'airplane_id': '10', 'passenger_numb': '200'},
                     ]
                 }
         response = self.client.post(url, data, format='json').json()

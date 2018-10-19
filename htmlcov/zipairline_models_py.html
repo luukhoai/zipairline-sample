@@ -160,14 +160,14 @@
 <p id="t32" class="stm run hide_run">    <span class="nam">airline</span> <span class="op">=</span> <span class="nam">models</span><span class="op">.</span><span class="nam">ForeignKey</span><span class="op">(</span><span class="nam">ZipAirline</span><span class="op">,</span> <span class="nam">related_name</span><span class="op">=</span><span class="str">'airplanes'</span><span class="op">,</span> <span class="nam">on_delete</span><span class="op">=</span><span class="nam">models</span><span class="op">.</span><span class="nam">CASCADE</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t33" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t34" class="stm run hide_run">    <span class="op">@</span><span class="nam">property</span><span class="strut">&nbsp;</span></p>
-<p id="t35" class="pln">    <span class="key">def</span> <span class="nam">field_tank</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t35" class="pln">    <span class="key">def</span> <span class="nam">fuel_tank</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t36" class="pln">        <span class="str">"""Get field tank of Airplane"""</span><span class="strut">&nbsp;</span></p>
 <p id="t37" class="stm run hide_run">        <span class="key">return</span> <span class="nam">self</span><span class="op">.</span><span class="nam">airplane_id</span> <span class="op">*</span> <span class="nam">FIELD_TANK</span><span class="strut">&nbsp;</span></p>
 <p id="t38" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t39" class="stm run hide_run">    <span class="op">@</span><span class="nam">property</span><span class="strut">&nbsp;</span></p>
 <p id="t40" class="pln">    <span class="key">def</span> <span class="nam">fly_time</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t41" class="pln">        <span class="str">"""Get fly time of Airplane"""</span><span class="strut">&nbsp;</span></p>
-<p id="t42" class="stm run hide_run">        <span class="key">return</span> <span class="nam">self</span><span class="op">.</span><span class="nam">field_tank</span> <span class="op">/</span> <span class="nam">self</span><span class="op">.</span><span class="nam">total_consumption_per_minute</span><span class="strut">&nbsp;</span></p>
+<p id="t42" class="stm run hide_run">        <span class="key">return</span> <span class="nam">self</span><span class="op">.</span><span class="nam">fuel_tank</span> <span class="op">/</span> <span class="nam">self</span><span class="op">.</span><span class="nam">total_consumption_per_minute</span><span class="strut">&nbsp;</span></p>
 <p id="t43" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t44" class="stm run hide_run">    <span class="op">@</span><span class="nam">property</span><span class="strut">&nbsp;</span></p>
 <p id="t45" class="pln">    <span class="key">def</span> <span class="nam">total_consumption_per_minute</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
@@ -192,7 +192,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.1</a>,
-            created at 2018-10-19 09:14
+            created at 2018-10-19 10:27
         </p>
     </div>
 </div>
