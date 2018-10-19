@@ -8,6 +8,7 @@ class ZipAirline(models.Model):
 
     @property
     def total_consumption(self):
+        """Get total fuel consumption of Airline"""
         consumption = 0
         airplanes = self.airplanes.all()
         for airplane in airplanes:
@@ -16,6 +17,7 @@ class ZipAirline(models.Model):
 
     @property
     def total_fly_time(self):
+        """Get total fly time of Airline"""
         fly_time = 0
         airplanes = self.airplanes.all()
         print(fly_time)
@@ -30,20 +32,25 @@ class ZipAirplane(models.Model):
     airline = models.ForeignKey(ZipAirline, related_name='airplanes', on_delete=models.CASCADE)
 
     @property
-    def field_tank(self):
+    def fuel_tank(self):
+        """Get field tank of Airplane"""
         return self.airplane_id * FIELD_TANK
 
     @property
     def fly_time(self):
-        return self.field_tank / self.total_consumption_per_minute
+        """Get fly time of Airplane"""
+        return self.fuel_tank / self.total_consumption_per_minute
 
     @property
     def total_consumption_per_minute(self):
+        """Get total consumption per minute of Airplane"""
         return self.passengers_consumption_per_minute() + self.airplane_consumption_per_minue()
 
     def passengers_consumption_per_minute(self):
+        """Get passengers consumption per minute of Airplane"""
         return self.passenger_numb * PER_PASSENGER_CONSUMPTION
 
     def airplane_consumption_per_minue(self):
+        """Get Airplane consumption per minute of Airplane"""
         return log(self.airplane_id ** PER_PLANE_CONSUMPTION, 10)
 

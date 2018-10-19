@@ -1,12 +1,17 @@
 from django.test import TestCase
 import json
-from .models import ZipAirline
+from .models import ZipAirline, ZipAirplane
 
 
 class ZipAirlineTest(TestCase):
 
     def setUp(self):
         self.url = '/zipairplanes/'
+        self.airline = ZipAirline.objects.create(airline_name='AirlineTest')
+
+    def test_airplane_object_create(self):
+        airplane = ZipAirplane.objects.create(airplane_id=1,passenger_numb=100,airline=self.airline)
+        assert airplane.fuel_tank == 200
 
     def test_airplane_id_is_not_positive(self):
         data = {
@@ -25,21 +30,19 @@ class ZipAirlineTest(TestCase):
         assert response['passenger_numb'][0] == 'passenger_numb shoud be positive integer value.'
 
     def test_fly_time_is_not_positive(self):
-        airline = ZipAirline.objects.create(airline_name='AirlineTest')
         data = {
             'airplane_id': '1',
             'passenger_numb': '100000',
-            'airline': airline.id
+            'airline': self.airline.id
         }
         response = self.client.post(self.url, data).json()
         assert response['non_field_errors'][0] == 'fly_time should be larger than 1.'
 
-    def test_pass_create_airline(self):
-        airline = ZipAirline.objects.create(airline_name='AirlineTest')
+    def test_pass_create_airplane(self):
         data = {
             'airplane_id': '1',
             'passenger_numb': '100',
-            'airline': airline.id
+            'airline': self.airline.id
         }
         response = self.client.post(self.url, data).json()
         assert response['airplane_id'] == 1
@@ -47,9 +50,8 @@ class ZipAirlineTest(TestCase):
 
     def test_validation_when_one_plane_got_error(self):
         url = '/zipairlines/'
-        airline = ZipAirline.objects.create(airline_name='TestAirline')
         data = {
-            'airline_id': airline.id,
+            'airline_id': self.airline.id,
             'airline_name': 'TestAirline',
             'airplanes': [
                 {'airplane_id': '-1', 'passenger_numb': '100'},
@@ -61,9 +63,8 @@ class ZipAirlineTest(TestCase):
 
     def test_pass_create_airline(self):
         url = '/zipairlines/'
-        airline = ZipAirline.objects.create(airline_name='TestAirline')
         data = {
-            'airline_id': airline.id,
+            'airline_id': self.airline.id,
             'airline_name': 'TestAirline',
             'airplanes': [
                         {'airplane_id': '1', 'passenger_numb': '100'},

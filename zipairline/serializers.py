@@ -10,16 +10,31 @@ class ZipAirplaneSerializer(ModelSerializer):
         fields = ('airplane_id', 'passenger_numb', 'airline','total_consumption_per_minute', 'fly_time')
 
     def validate_airplane_id(self, value):
+        """
+        Validate airplane_id, should be positive integer
+        :param value:
+        :return: value
+        """
         if value < 0:
             raise serializers.ValidationError('airplane_id should be positive integer value.', code='input')
         return value
 
     def validate_passenger_numb(self, value):
+        """
+        Validate passenger_numb, should be positive integer
+        :param value:
+        :return:
+        """
         if value < 0:
             raise serializers.ValidationError('passenger_numb shoud be positive integer value.')
         return value
 
     def validate(self, order_dict):
+        """
+        Validate fly_time, should be larger than 1 minute
+        :param order_dict:
+        :return: order_dict
+        """
         airplane_id = order_dict['airplane_id']
         passenger_numb = order_dict['passenger_numb']
         airline = ZipAirplane(airplane_id=airplane_id, passenger_numb=passenger_numb)
@@ -36,6 +51,11 @@ class ZipAirlinesSerializer(ModelSerializer):
         fields = ('airplanes', 'airline_name', 'total_consumption', 'total_fly_time')
 
     def create(self, validated_data):
+        """
+        Create airplane
+        :param validated_data: eg: {'airline_name': 'TestAirline', 'airplanes': [...]}
+        :return: airline
+        """
         airline_name = validated_data.pop('airline_name')
         airplanes = validated_data.pop('airplanes')
 

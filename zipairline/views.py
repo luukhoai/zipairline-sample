@@ -1,4 +1,3 @@
-import json
 from rest_framework import generics
 from rest_framework.response import Response
 from .serializers import ZipAirplaneSerializer, ZipAirlinesSerializer
@@ -19,7 +18,9 @@ class ZipAirplaneDetail(generics.RetrieveUpdateDestroyAPIView):
 class ZipAirlines(APIView):
 
     def post(self, request, format=None):
+        """Post ZipAirlines data"""
 
+        # Verify data follow
         dict_data = dict(request.data)
         airline_id = int(dict_data['airline_id'][0])
         airline_name = dict_data['airline_name'][0]
