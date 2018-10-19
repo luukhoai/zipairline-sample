@@ -20,7 +20,6 @@ class ZipAirline(models.Model):
         """Get total fly time of Airline"""
         fly_time = 0
         airplanes = self.airplanes.all()
-        print(fly_time)
         for airplane in airplanes:
             fly_time += airplane.total_consumption_per_minute
         return fly_time
