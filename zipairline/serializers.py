@@ -7,7 +7,7 @@ class ZipAirplaneSerializer(ModelSerializer):
 
     class Meta:
         model = ZipAirplane
-        fields = ('airplane_id', 'passenger_numb', 'airline','total_consumption_per_minute', 'fly_time')
+        fields = ('airplane_id', 'passenger_numb', 'airline')
 
     def validate_airplane_id(self, value):
         """
@@ -43,12 +43,18 @@ class ZipAirplaneSerializer(ModelSerializer):
         return order_dict
 
 
+class ZipAirplaneCreateSerializer(ZipAirplaneSerializer):
+    class Meta:
+        model = ZipAirplane
+        fields = ('airplane_id', 'passenger_numb')
+
+
 class ZipAirlinesSerializer(ModelSerializer):
-    airplanes = ZipAirplaneSerializer(many=True)
+    airplanes = ZipAirplaneCreateSerializer(many=True)
 
     class Meta:
         model = ZipAirline
-        fields = ('airplanes', 'airline_name', 'total_consumption', 'total_fly_time')
+        fields = ('airline_name', 'airplanes')
 
     def create(self, validated_data):
         """
@@ -61,5 +67,5 @@ class ZipAirlinesSerializer(ModelSerializer):
 
         airline = ZipAirline.objects.get(airline_name=airline_name)
         for airplane_data in airplanes:
-            ZipAirplane.objects.create(**airplane_data)
+            ZipAirplane.objects.create(airline=airline, **airplane_data)
         return airline

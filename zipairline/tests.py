@@ -44,27 +44,25 @@ class ZipAirlineTest(TestCase):
             'passenger_numb': '100',
             'airline': self.airline.id
         }
-        response = self.client.post(self.url, data).json()
+        response = self.client.post(self.url, json.dumps(data), content_type='application/json').json()
         assert response['airplane_id'] == 1
         assert response['passenger_numb'] == 100
 
     def test_validation_when_one_plane_got_error(self):
         url = '/zipairlines/'
         data = {
-            'airline_id': self.airline.id,
             'airline_name': 'TestAirline',
             'airplanes': [
                 {'airplane_id': '-1', 'passenger_numb': '100'},
                 {'airplane_id': '2', 'passenger_numb': '200'},
             ]
         }
-        response = self.client.post(url, data, format='json').json()
+        response = self.client.post(url, json.dumps(data), content_type='application/json').json()
         assert response['airplanes'][0]['airplane_id'][0] == 'airplane_id should be positive integer value.'
 
     def test_pass_create_airline(self):
         url = '/zipairlines/'
         data = {
-            'airline_id': self.airline.id,
             'airline_name': 'TestAirline',
             'airplanes': [
                         {'airplane_id': '1', 'passenger_numb': '100'},
@@ -79,5 +77,5 @@ class ZipAirlineTest(TestCase):
                         {'airplane_id': '10', 'passenger_numb': '200'},
                     ]
                 }
-        response = self.client.post(url, data, format='json').json()
-        print(response)
+        response = self.client.post(url, json.dumps(data), content_type='application/json').json()
+        assert len(response['airplanes']) == 10
