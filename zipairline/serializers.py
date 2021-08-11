@@ -63,4 +63,3 @@ class ZipAirlinesSerializer(ModelSerializer):
         for airplane_data in airplanes:
             ZipAirplane.objects.create(**airplane_data)
         return airline
-

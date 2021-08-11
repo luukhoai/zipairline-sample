@@ -52,4 +52,3 @@ class ZipAirplane(models.Model):
     def airplane_consumption_per_minue(self):
         """Get Airplane consumption per minute of Airplane"""
         return log(self.airplane_id ** PER_PLANE_CONSUMPTION, 10)
-
